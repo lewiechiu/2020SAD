@@ -10,7 +10,7 @@ class StudentInfo(models.Model):
     year = models.DecimalField(max_digits=1, decimal_places=0)
     address = models.CharField(max_length = 50)
     student_phone = models.CharField(max_length = 20)
-    parent = models.CharField(max_length = 10)
+    parent_name = models.CharField(max_length = 10)
     parent_phone = models.CharField(max_length = 20)
     sibling_name = models.CharField(max_length = 10)
     email = models.CharField(max_length = 30)
@@ -18,7 +18,7 @@ class StudentInfo(models.Model):
     def __str__(self):
         return self.student_name
 
-class Attendence(models.Model):
+class Attendance(models.Model):
     SID = models.CharField(max_length = 20)
     date_time = models.DateTimeField()
     in_out = models.BooleanField()
