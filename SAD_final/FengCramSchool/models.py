@@ -30,7 +30,7 @@ class SchoolRecord(models.Model):
     SID = models.CharField(max_length = 20)
     category = models.CharField(max_length = 20)
     subject = models.CharField(max_length = 20) #可改成選項
-    record_url = models.URLField
+    record_url = models.URLField()
     grade = models.CharField(max_length = 20)
     scholarshipID = models.CharField(max_length = 20)
 
@@ -56,7 +56,7 @@ class Quiz(models.Model):
 class CourseSchedule(models.Model):
     courseID = models.CharField(max_length = 20)
     course = models.CharField(max_length = 20)
-    class_time = models.TimeField
+    class_time = models.TimeField()
 
     def __str__(self):
         return self.courseID
@@ -64,7 +64,7 @@ class CourseSchedule(models.Model):
 
 class Tuition(models.Model):
     SID = models.CharField(max_length = 20)
-    received_date = models.DateField
+    received_date = models.DateField()
     courseID = models.CharField(max_length = 20)
     tuition_payment = models.CharField(max_length = 10)
 
@@ -74,7 +74,7 @@ class Tuition(models.Model):
 class Scholarship(models.Model):
     SID = models.CharField(max_length = 20)
     scholarshipID = models.CharField(max_length = 20)
-    payment_date = models.DateField
+    payment_date = models.DateField()
     scholarship_description = models.CharField(max_length = 20)
     scholarship_payment = models.CharField(max_length = 10)
 
@@ -84,8 +84,8 @@ class Scholarship(models.Model):
 class Video(models.Model):
     VID = models.CharField(max_length = 20)
     courseID = models.CharField(max_length = 20)
-    video_url = models.URLField
-    course_date = models.DateField
+    video_url = models.URLField()
+    course_date = models.DateField()
     
     def __str__(self):
         return self.VID
