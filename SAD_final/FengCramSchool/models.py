@@ -33,7 +33,7 @@ class Attendance(models.Model):
         
 class SchoolRecord(models.Model):
     SID = models.CharField(max_length = 20)
-    category = models.CharField(max_length = 20, blank=True, null = True)
+    category = models.CharField(max_length = 50, blank=True, null = True)
     SUBJECT_CHOICES = (
         ('math', 'Math'),
         ('english', 'English'),
@@ -41,7 +41,7 @@ class SchoolRecord(models.Model):
     )
     subject = models.CharField(max_length = 20, choices = SUBJECT_CHOICES, default= 'math', blank=True, null = True)
     record_url = models.URLField(blank=True, null = True)
-    grade = models.DecimalField(max_digits=3, decimal_places=1, blank=True, null = True)
+    grade = models.DecimalField(max_digits=4, decimal_places=1, blank=True, null = True)
     scholarshipID = models.CharField(max_length = 20, blank=True, null = True)
 
     def __str__(self):
@@ -50,7 +50,7 @@ class SchoolRecord(models.Model):
 class CramRecord(models.Model):
     SID = models.CharField(max_length = 20)
     quizID = models.CharField(max_length = 20, blank=True, null = True)
-    quiz_grade = models.DecimalField(max_digits=3, decimal_places=1, blank=True, null = True)
+    quiz_grade = models.DecimalField(max_digits=4, decimal_places=1, blank=True, null = True)
 
     def __str__(self):
         return self.SID
@@ -65,7 +65,7 @@ class Quiz(models.Model):
 
 class CourseSchedule(models.Model):
     courseID = models.CharField(max_length = 20)
-    course = models.CharField(max_length = 20, blank=True, null = True)
+    course = models.CharField(max_length = 50, blank=True, null = True)
     class_time = models.TimeField(blank=True, null = True)
 
     def __str__(self):
@@ -90,13 +90,13 @@ class Tuition(models.Model):
 
 class Scholarship(models.Model):
     SID = models.CharField(max_length = 20)
-    scholarshipID = models.CharField(max_length = 20, blank = True, null = True)
     school_record = models.ForeignKey(
         SchoolRecord,
         related_name = 'school_record',
         on_delete = models.CASCADE,
         default = 1
     )
+    scholarshipID = models.CharField(max_length = 20, blank = True, null = True)
     payment_date = models.DateField(blank=True, null = True)
     scholarship_description = models.CharField(max_length = 100, blank=True, null = True)
     scholarship_payment = models.DecimalField(max_digits=6, decimal_places=1, blank=True, null = True)
