@@ -21,7 +21,12 @@ class StudentInfo(models.Model):
 class Attendance(models.Model):
     SID = models.CharField(max_length = 20)
     date_time = models.DateTimeField(blank=True, null = True)
-    in_out = models.NullBooleanField(blank=True, null = True)
+    IN_OUT_CHOICES = (
+        ('in', 'IN'),
+        ('out', 'OUT')
+    )
+    # in_out = models.NullBooleanField(blank=True, null = True)
+    in_out = models.CharField(max_length = 5, choices = IN_OUT_CHOICES, default = 'in', blank=True, null = True)
 
     def __str__(self):
         return self.SID
@@ -29,7 +34,12 @@ class Attendance(models.Model):
 class SchoolRecord(models.Model):
     SID = models.CharField(max_length = 20)
     category = models.CharField(max_length = 20, blank=True, null = True)
-    subject = models.CharField(max_length = 20, blank=True, null = True) #可改成選項
+    SUBJECT_CHOICES = (
+        ('math', 'Math'),
+        ('english', 'English'),
+        ('chinese', 'Chinese')
+    )
+    subject = models.CharField(max_length = 20, choices = SUBJECT_CHOICES, default= 'math', blank=True, null = True)
     record_url = models.URLField(blank=True, null = True)
     grade = models.CharField(max_length = 20, blank=True, null = True)
     scholarshipID = models.CharField(max_length = 20, blank=True, null = True)
