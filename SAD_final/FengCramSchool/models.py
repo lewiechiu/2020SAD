@@ -4,16 +4,16 @@ from django.db import models
 
 class StudentInfo(models.Model):
     SID = models.CharField(max_length = 20)
-    student_name = models.CharField(max_length = 10)
+    student_name = models.CharField(max_length = 30)
     birthday = models.DateField(blank=True, null = True)
-    school = models.CharField(max_length = 20, blank=True, null = True)
-    year = models.DecimalField(max_digits=1, decimal_places=0, blank=True, null = True)
-    address = models.CharField(max_length = 50, blank=True, null = True)
+    school = models.CharField(max_length = 50, blank=True, null = True)
+    year = models.DecimalField(max_digits=2, decimal_places=0, blank=True, null = True)
+    address = models.CharField(max_length = 100, blank=True, null = True)
     student_phone = models.CharField(max_length = 20, blank=True, null = True)
-    parent_name = models.CharField(max_length = 10, blank=True, null = True)
+    parent_name = models.CharField(max_length = 30, blank=True, null = True)
     parent_phone = models.CharField(max_length = 20, blank=True, null = True)
-    sibling_name = models.CharField(max_length = 10, blank=True, null = True)
-    email = models.CharField(max_length = 30, blank=True, null = True)
+    sibling_name = models.CharField(max_length = 30, blank=True, null = True)
+    email = models.CharField(max_length = 50, blank=True, null = True)
 
     def __str__(self):
         return self.student_name
@@ -41,7 +41,7 @@ class SchoolRecord(models.Model):
     )
     subject = models.CharField(max_length = 20, choices = SUBJECT_CHOICES, default= 'math', blank=True, null = True)
     record_url = models.URLField(blank=True, null = True)
-    grade = models.CharField(max_length = 20, blank=True, null = True)
+    grade = models.DecimalField(max_digits=3, decimal_places=1, blank=True, null = True)
     scholarshipID = models.CharField(max_length = 20, blank=True, null = True)
 
     def __str__(self):
@@ -50,7 +50,7 @@ class SchoolRecord(models.Model):
 class CramRecord(models.Model):
     SID = models.CharField(max_length = 20)
     quizID = models.CharField(max_length = 20, blank=True, null = True)
-    quiz_grade = models.CharField(max_length = 20, blank=True, null = True)
+    quiz_grade = models.DecimalField(max_digits=3, decimal_places=1, blank=True, null = True)
 
     def __str__(self):
         return self.SID
@@ -58,7 +58,7 @@ class CramRecord(models.Model):
 class Quiz(models.Model):
     quizID = models.CharField(max_length = 20)
     quiz_date = models.DateField(blank=True, null = True)
-    quiz_description = models.CharField(max_length = 20, blank=True, null = True)
+    quiz_description = models.CharField(max_length = 100, blank=True, null = True)
 
     def __str__(self):
         return self.quizID
@@ -76,17 +76,30 @@ class Tuition(models.Model):
     SID = models.CharField(max_length = 20)
     received_date = models.DateField(blank=True, null = True)
     courseID = models.CharField(max_length = 20, blank=True, null = True)
-    tuition_payment = models.CharField(max_length = 10, blank=True, null = True)
+    course_schedule = models.ForeignKey(
+        CourseSchedule,
+        related_name = 'course_schedule',
+        on_delete = models.CASCADE,
+        default = 1
+    )
+    tuition_payment = models.DecimalField(max_digits=6, decimal_places=1, blank=True, null = True)
+    
 
     def __str__(self):
         return self.SID
 
 class Scholarship(models.Model):
     SID = models.CharField(max_length = 20)
-    scholarshipID = models.CharField(max_length = 20, blank=True, null = True)
+    scholarshipID = models.CharField(max_length = 20, blank = True, null = True)
+    school_record = models.ForeignKey(
+        SchoolRecord,
+        related_name = 'school_record',
+        on_delete = models.CASCADE,
+        default = 1
+    )
     payment_date = models.DateField(blank=True, null = True)
-    scholarship_description = models.CharField(max_length = 20, blank=True, null = True)
-    scholarship_payment = models.CharField(max_length = 10, blank=True, null = True)
+    scholarship_description = models.CharField(max_length = 100, blank=True, null = True)
+    scholarship_payment = models.DecimalField(max_digits=6, decimal_places=1, blank=True, null = True)
 
     def __str__(self):
         return self.SID
