@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-    <!-- <h1> Hello World!!! </h1> -->
-    {% for i in student_list %}
-    <h1>Student: {{i.SID}}</h1>
-    {% endfor %}
-  </body>
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body>
+  <!-- <h1> Hello World!!! </h1> -->
+  {% for i in student_list %}
+  <h1>Student: {{i.SID}}</h1>
+  {% endfor %}
+  <a href="../send_URL">click to send URL</a>
+</body>
+
 </html>
