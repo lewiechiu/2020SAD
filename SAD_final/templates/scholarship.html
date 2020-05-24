@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    {% load static %}
+    <script src="{% static 'sendAPI.js' %}"></script>   
+    <meta charset="utf-8">
+    <script>
+      console.log("Helrld");
+
+    </script>
+    <title></title>
+  </head>
+  <body>
+    <!-- <h1> Hello World!!! </h1> -->
+    <div class = "">
+      
+    </div>
+    <table style="width:100%">
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Amount</th>
+        <th>Granted?</th>
+      </tr>
+      {% for i in student_list %}
+      <tr>
+        <td style="text-align: center;">{{i.student_info}}</td>
+        <td style="text-align: center;">{{i.scholarship_description}}</td>
+        <td style="text-align: center;">{{i.scholarship_payment}}</td>
+        <td style="align-items: center;"><input type="checkbox" name={{i.student_info}} value=1 class="response"></td>
+      </tr>
+      {% endfor %}
+      
+    </table>
+    <input type="button" id="API_btn" value="Send request">
+  </body>
+  <script>
+
+    document.getElementById("API_btn").onclick = function() {
+      console.log("Clicked");
+      var inputs = document.getElementsByClassName("response");
+
+      var selected = [];
+      for (elem in inputs){
+        if (inputs.item(elem).checked){
+          // console.log(inputs.item(elem).parentNode.parentNode);
+          var names_selected = inputs.item(elem).parentNode.parentNode.childNodes[1].innerHTML;
+          console.log(names_selected);
+          selected.push(names_selected);
+        }
+      }
+      console.log(selected);
+      if (selected.length > 0){
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+              // Typical action to be performed when the document is ready:
+            open("http://127.0.0.1:8000/FengCramSchool/api/issueScholar/");
+          }
+        };
+        xhttp.open("POST", "http://127.0.0.1:8000/FengCramSchool/api/issueScholar/", true);
+        xhttp.send(selected)
+      }
+      
+    }
+    
+  </script>
+</html>
