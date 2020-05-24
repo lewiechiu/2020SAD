@@ -2,6 +2,8 @@
 <html lang="en" dir="ltr">
 
 <head>
+  {% load static %}
+  <script src="{% static 'sendAPI.js' %}"></script>
   <meta charset="utf-8">
   <title></title>
 </head>
@@ -11,7 +13,7 @@
   {% for i in student_list %}
   <h1>Student: {{i.SID}}</h1>
   {% endfor %}
-  <a href="../send_URL">click to send URL</a>
+  <a href="../send_URL">send_URL</a>
 </body>
 
 </html>
