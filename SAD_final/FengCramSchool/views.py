@@ -72,20 +72,20 @@ def send_video_URL(request):
             real_courseID = list(CourseSchedule.objects.filter(
                 id=SID_URL[i][j][0]).values())[0]["courseID"]
 
-            # gmail_user = 'superandy0407@gmail.com'
-            # gmail_password = 'superandy'  # your gmail password
+            gmail_user = 'superandy0407@gmail.com'
+            gmail_password = 'superandy'  # your gmail password
 
-            # msg = MIMEText(that_stu_name+'同學你好!\n今天你缺席了(課程ID:' +
-            #                real_courseID+')這門課\n補課影片連結：'+SID_URL[i][j][1]+'\n請及時補完^^')
-            # msg['Subject'] = '孔銘數學家教班補課連結'
-            # msg['From'] = gmail_user
-            # msg['To'] = that_stu_email
+            msg = MIMEText(that_stu_name+'同學你好!\n今天你缺席了(課程ID:' +
+                           real_courseID+')這門課\n補課影片連結：'+SID_URL[i][j][1]+'\n請及時補完^^')
+            msg['Subject'] = '孔銘數學家教班補課連結'
+            msg['From'] = gmail_user
+            msg['To'] = that_stu_email
 
-            # server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
-            # server.ehlo()
-            # server.login(gmail_user, gmail_password)
-            # server.send_message(msg)
-            # server.quit()
+            server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+            server.ehlo()
+            server.login(gmail_user, gmail_password)
+            server.send_message(msg)
+            server.quit()
             send_class = send_class + " " + real_courseID
 
 #             print('Email sent!')
