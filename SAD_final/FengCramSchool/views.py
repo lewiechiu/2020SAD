@@ -9,8 +9,12 @@ from .models import CourseSchedule
 from .models import Video
 from .models import Tuition
 
-from .models import StudentInfo, Scholarship
+from .models import StudentInfo, Scholarship, SchoolRecord
 from django.views.decorators.csrf import csrf_exempt
+from django.http import  JsonResponse
+
+import json
+import datetime
 # Create your views here.
 
 
@@ -98,14 +102,50 @@ def send_video_URL(request):
 @csrf_exempt
 def GetScholar(request):
     if request.method == "GET":
-        print(request)
-        student_list = Scholarship.objects.all()
-        for stu in student_list:
-            print(stu.student_info)
-            print(type(stu.student_info))
-        print(student_list)
-        context = {'student_list': student_list}
-        return render(request, 'scholarship.html', context)
+
+        school_record = SchoolRecord.objects.all()
+        recipient = dict()
+        for sr in school_record:
+            if sr.related_course != None:
+
+                # print(sr.category, sr.grade, sr.related_course, sr.related_course.scholarship_value, sr.related_course.scholarship_type)
+                if sr.related_course.scholarship_type == "rank" and sr.rank != None:
+                    if sr.rank <= sr.related_course.scholarship_value:
+                        receiver_ = Scholarship(
+                            student_info = sr.student_info, \
+                            school_record = sr, \
+                            payment_date = datetime.date.today(), \
+                            scholarship_description = sr.category + "<=" + str(sr.related_course.scholarship_value), \
+                            scholarship_payment = sr.related_course.scholarship_amount
+                            )
+                        
+                        # receiver_.save()
+                        receiver_ = {
+                            "name": receiver_.student_info.student_name,\
+                            "description": receiver_.scholarship_description,\
+                            "amount" : int(receiver_.scholarship_payment)
+                        }
+                        recipient.setdefault(receiver_["name"], receiver_)
+
+                elif sr.related_course.scholarship_type == "score" and sr.grade != None:
+                    if sr.grade >= sr.related_course.scholarship_value:
+                        receiver_ = Scholarship(
+                            student_info = sr.student_info, \
+                            school_record = sr, \
+                            payment_date = datetime.date.today(), \
+                            scholarship_description = sr.category + ">=" + str(sr.related_course.scholarship_value), \
+                            scholarship_payment = sr.related_course.scholarship_amount
+                            )
+                        # receiver_.save()
+                        receiver_ = {
+                            "name": receiver_.student_info.student_name,\
+                            "description": receiver_.scholarship_description,\
+                            "amount" : int(receiver_.scholarship_payment)
+                        }
+                        recipient.setdefault(receiver_["name"], receiver_)
+        print(recipient)
+        recipient = json.dumps(recipient)
+        return HttpResponse(recipient)
     else:
         print(request.body.decode('ascii').split(","))
         # Modify the real database
