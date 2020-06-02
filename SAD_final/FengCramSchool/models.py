@@ -17,6 +17,9 @@ class StudentInfo(models.Model):
 
     def __str__(self):
         return self.student_name
+    
+    class Meta:
+        verbose_name_plural = '學生資料'
 
 class Attendance(models.Model):
     # SID = models.CharField(max_length = 20)
