@@ -89,9 +89,12 @@ class SchoolRecord(models.Model):
         null = True,
         blank = True
     )
-    
+
     def __str__(self):
-        return self.student_info.student_name + '_' + self.scholarshipID
+        if self.grade != None:
+            return self.student_info.student_name + self.category + "_" + str(self.grade)
+        else:
+            return self.student_info.student_name + self.category + "_" + str(int(self.rank))
 
     class Meta:
         verbose_name = '在校成績紀錄'
@@ -183,7 +186,7 @@ class Scholarship(models.Model):
     status = models.CharField('獎學金頒發狀態', max_length = 20, choices = STATUS, default = 'unpaid', blank = True, null = True)
 
     def __str__(self):
-        return self.student_info.student_name + '_' + self.school_record.scholarshipID
+        return self.student_info.student_name 
 
     class Meta:
         verbose_name = '獎學金紀錄'
