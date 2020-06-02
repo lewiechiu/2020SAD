@@ -11,7 +11,9 @@ from .models import Tuition
 
 from .models import StudentInfo, Scholarship, SchoolRecord
 from django.views.decorators.csrf import csrf_exempt
+from django.http import  JsonResponse
 
+import json
 import datetime
 # Create your views here.
 
@@ -102,14 +104,13 @@ def GetScholar(request):
     if request.method == "GET":
 
         school_record = SchoolRecord.objects.all()
-        recipient = []
+        recipient = dict()
         for sr in school_record:
             if sr.related_course != None:
 
-                print(sr.category, sr.grade, sr.related_course, sr.related_course.scholarship_value, sr.related_course.scholarship_type)
+                # print(sr.category, sr.grade, sr.related_course, sr.related_course.scholarship_value, sr.related_course.scholarship_type)
                 if sr.related_course.scholarship_type == "rank" and sr.rank != None:
                     if sr.rank <= sr.related_course.scholarship_value:
-                        print("issue Scholar")
                         receiver_ = Scholarship(
                             student_info = sr.student_info, \
                             school_record = sr, \
@@ -118,8 +119,13 @@ def GetScholar(request):
                             scholarship_payment = sr.related_course.scholarship_amount
                             )
                         
-                        receiver_.save()
-                        recipient.append(receiver_)
+                        # receiver_.save()
+                        receiver_ = {
+                            "name": receiver_.student_info.student_name,\
+                            "description": receiver_.scholarship_description,\
+                            "amount" : int(receiver_.scholarship_payment)
+                        }
+                        recipient.setdefault(receiver_["name"], receiver_)
 
                 elif sr.related_course.scholarship_type == "score" and sr.grade != None:
                     if sr.grade >= sr.related_course.scholarship_value:
@@ -130,10 +136,16 @@ def GetScholar(request):
                             scholarship_description = sr.category + ">=" + str(sr.related_course.scholarship_value), \
                             scholarship_payment = sr.related_course.scholarship_amount
                             )
-                        receiver_.save()
-                        recipient.append(receiver_)
-        student_list = Scholarship.objects.all()
-        return HttpResponse(request)
+                        # receiver_.save()
+                        receiver_ = {
+                            "name": receiver_.student_info.student_name,\
+                            "description": receiver_.scholarship_description,\
+                            "amount" : int(receiver_.scholarship_payment)
+                        }
+                        recipient.setdefault(receiver_["name"], receiver_)
+        print(recipient)
+        recipient = json.dumps(recipient)
+        return HttpResponse(recipient)
     else:
         print(request.body.decode('ascii').split(","))
         # Modify the real database
