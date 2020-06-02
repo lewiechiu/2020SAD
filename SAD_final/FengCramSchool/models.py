@@ -89,8 +89,7 @@ class SchoolRecord(models.Model):
         null = True,
         blank = True
     )
-    scholarshipID = models.CharField('獎學金編號', max_length = 20, blank=True, null = True)
-
+    
     def __str__(self):
         return self.student_info.student_name + '_' + self.scholarshipID
 
