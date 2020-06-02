@@ -44,7 +44,26 @@ class Attendance(models.Model):
     class Meta:
         verbose_name = '出缺席紀錄'
         verbose_name_plural = '出缺席紀錄'
-        
+
+class CourseSchedule(models.Model):
+    courseID = models.CharField('課程編號', max_length = 20)
+    course = models.CharField('課程名稱', max_length = 50, blank=True, null = True)
+    class_time = models.TimeField('課程時間', blank=True, null = True)
+    TYPES_CHOICES = (
+        ('rank', '名次'),
+        ('score', '分數')
+    )
+    scholarship_type = models.CharField('獎學金標準類別', max_length = 20, choices = TYPES_CHOICES, default = 'score', blank = True, null = True)
+    scholarship_value = models.DecimalField('獎學金領取標準', max_digits=4, decimal_places=1, default = 90.0, blank=True, null = True)
+    scholarship_amount = models.DecimalField('獎學金金額', max_digits=6, decimal_places=1, default = 200.0, blank=True, null = True)
+
+    def __str__(self):
+        return self.courseID + '_' + self.course
+
+    class Meta:
+        verbose_name = '課程表'
+        verbose_name_plural = '課程表'
+
 class SchoolRecord(models.Model):
     # SID = models.CharField(max_length = 20)
     student_info = models.ForeignKey(
@@ -62,6 +81,14 @@ class SchoolRecord(models.Model):
     subject = models.CharField('科目', max_length = 20, choices = SUBJECT_CHOICES, default= 'math', blank=True, null = True)
     record_url = models.URLField('成績單連結', blank=True, null = True)
     grade = models.DecimalField('分數', max_digits=4, decimal_places=1, blank=True, null = True)
+    rank = models.DecimalField('名次', max_digits=4, decimal_places=1, blank=True, null = True)
+    related_course = models.ForeignKey(
+        CourseSchedule,
+        related_name = 'schoolRecord_related_course',
+        on_delete = models.CASCADE,
+        null = True,
+        blank = True
+    )
     scholarshipID = models.CharField('獎學金編號', max_length = 20, blank=True, null = True)
 
     def __str__(self):
@@ -107,18 +134,6 @@ class CramRecord(models.Model):
         verbose_name = '補習班小考成績紀錄'
         verbose_name_plural = '補習班小考成績紀錄'
 
-class CourseSchedule(models.Model):
-    courseID = models.CharField('課程編號', max_length = 20)
-    course = models.CharField('課程名稱', max_length = 50, blank=True, null = True)
-    class_time = models.TimeField('課程時間', blank=True, null = True)
-
-    def __str__(self):
-        return self.courseID + '_' + self.course
-
-    class Meta:
-        verbose_name = '課程表'
-        verbose_name_plural = '課程表'
-
 class Tuition(models.Model):
     # SID = models.CharField(max_length = 20)
     student_info = models.ForeignKey(
@@ -162,6 +177,11 @@ class Scholarship(models.Model):
     payment_date = models.DateField('頒發日期', blank=True, null = True)
     scholarship_description = models.CharField('頒發理由', max_length = 100, blank=True, null = True)
     scholarship_payment = models.DecimalField('獎學金金額', max_digits=6, decimal_places=1, blank=True, null = True)
+    STATUS = (
+        ('paid', '已頒發'),
+        ('unpaid', '未頒發')
+    )
+    status = models.CharField('獎學金頒發狀態', max_length = 20, choices = STATUS, default = 'unpaid', blank = True, null = True)
 
     def __str__(self):
         return self.student_info.student_name + '_' + self.school_record.scholarshipID
