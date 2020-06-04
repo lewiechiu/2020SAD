@@ -22,5 +22,6 @@ from . import views
 urlpatterns = [
     # path('', views.index, name='index'),
     path('', views.showTemplate),
-    path('api/issueScholar/', views.GetScholar)
+    path('api/issueScholar/', views.GetScholar),
+    path('api/sendEmail/', views.sendVideoURL)
 ]
