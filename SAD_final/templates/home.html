@@ -13,10 +13,10 @@
 			<div class='container' style="background-color:rgb(23, 109, 116);">
 				<button onclick="document.getElementById('email').style.display='block'" class="button transparent">發送Email</button>
 			</div>
-			<div class='container' style="background-color:rgb(247, 169, 79);">
-				<button onclick="document.getElementById('tuition').style.display='block'" class="button transparent">發送獎學金</button>
+			<div class='container' style="background-color:rgb(192, 95, 28);">
+				<button onclick="document.getElementById('scholar').style.display='block'" class="button transparent">發送獎學金</button>
 			</div>
-			<div class='container' style="background-color:rgb(99, 196, 86);">
+			<div class='container' style="background-color:rgb(21, 129, 41);">
 				<a href="../admin">更動資料庫</a>
 			</div>
 		</div>
@@ -24,23 +24,49 @@
 		<div id="email" class="modal">
 		    <div class="modal-content">
 		    	<div class="container">
-			        <p>確定發送Email?</p>
-			        <button onclick="document.getElementById('email').style.display='none'" class="button">確定</button>
-		    		<button onclick="document.getElementById('email').style.display='none'" class="button">取消</button>
+			        <p style="font-size: 24px;">確定發送Email?</p>
+			        <button onclick="API_Email();this.style.display='none'" class="button" style="color:gray;">確定</button>
+		    		<button onclick="document.getElementById('email').style.display='none'" class="button" style="color:gray;">取消</button>
 		    	</div>
 		    </div>
 		</div>
 
-		<div id="tuition" class="modal">
+		<div id="scholar" class="modal">
 		    <div class="modal-content">
 		    	<div class="container">
-			        <p>確定發送獎學金?</p>
-			        <button onclick="document.getElementById('tuition').style.display='none'" class="button">確定</button>
-		    		<button onclick="document.getElementById('tuition').style.display='none'" class="button">取消</button>
+			        <p style="font-size: 24px;">確定發送獎學金?</p>
+			        <button onclick="API_Scholar();this.style.display='none'" class="button" style="color:gray;">確定</button>
+		    		<button onclick="document.getElementById('scholar').style.display='none'" class="button" style="color:gray;">取消</button>
 		    	</div>
 		    </div>
 		</div>
 	</body>
+
+	<script type="text/javascript">
+		function API_Email() {
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+			    	document.getElementById("demo").innerHTML =
+			    	this.responseText;
+			    }
+			};
+			xhttp.open("GET", "xmlhttp_info.txt", true);
+			xhttp.send();
+		}
+
+		function API_Scholar() {
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+			    	document.getElementById("demo").innerHTML =
+			    	this.responseText;
+			    }
+			};
+			xhttp.open("GET", "xmlhttp_info.txt", true);
+			xhttp.send();
+		}	
+	</script>
 
 	<style>
 		html, body {
@@ -66,6 +92,13 @@
 		    cursor:pointer;
 		    overflow: hidden;
 		    outline:none;
+		    font-family: "Microsoft JhengHei", sans-serif;
+		    font-size: 16px;
+		    color: rgb(255, 255, 255);
+		}
+
+		.button:hover {
+			color: rgb(238, 108, 126);
 		}
 
 		.content {
@@ -75,7 +108,7 @@
 
 		.content a:link, a:visited {
 		    text-decoration: none;
-		    color: rgb(255, 255, 255)
+		    color: rgb(255, 255, 255);
 		}
 
 		.content a:hover, a:active {
@@ -87,7 +120,7 @@
 		    margin: auto;
 		    width: auto;
 		    padding: 1.5em 1.5em;
-		    text-align: center;
+		    align-content: center;
 		    border-radius: 1em;
 		    display: inline-block;
 		}
@@ -103,7 +136,7 @@
 			height:100%;
 			overflow:auto;
 			background-color:rgb(0,0,0);
-			background-color:rgba(0,0,0,0.4)
+			background-color:rgba(0,0,0,0.4);
 		}
 
 		.modal-content{
@@ -112,7 +145,8 @@
 			position:relative;
 			padding:0;
 			outline:0;
-			width:600px
+			width:600px;
+			text-align:center;
 		}
 	</style>
 </html>
