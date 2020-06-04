@@ -27,8 +27,6 @@ def showTemplate(request):
     context = {'student_list': student_list}
     return render(request, 'test.html', context)
 
-def homepage(request):
-    return render(request, 'home.html')
 
 def send_video_URL(request):
     # select當天video的資料
