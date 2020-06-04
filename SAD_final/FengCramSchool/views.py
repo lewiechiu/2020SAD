@@ -98,7 +98,7 @@ def send_video_URL(request):
         send_to.append(that_stu_name + send_class + " " + that_stu_email)
     print(send_to)
     data = {"show": send_to}
-    return render(request, 'sentEmail.html', data)
+    return render(request, 'URLtest.html', data)
 
 
 @csrf_exempt

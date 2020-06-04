@@ -8,40 +8,6 @@
 		<script>console.log("Helrld");</script>
 	</head>
 
-	<body>
-		<div class='content'>
-			<div class='container' style="background-color:rgb(23, 109, 116);">
-				<button onclick="document.getElementById('email').style.display='block'" class="button transparent">發送Email</button>
-			</div>
-			<div class='container' style="background-color:rgb(247, 169, 79);">
-				<button onclick="document.getElementById('tuition').style.display='block'" class="button transparent">發送獎學金</button>
-			</div>
-			<div class='container' style="background-color:rgb(99, 196, 86);">
-				<a href="../admin">更動資料庫</a>
-			</div>
-		</div>
-
-		<div id="email" class="modal">
-		    <div class="modal-content">
-		    	<div class="container">
-			        <p>確定發送Email?</p>
-			        <button onclick="document.getElementById('email').style.display='none'" class="button">確定</button>
-		    		<button onclick="document.getElementById('email').style.display='none'" class="button">取消</button>
-		    	</div>
-		    </div>
-		</div>
-
-		<div id="tuition" class="modal">
-		    <div class="modal-content">
-		    	<div class="container">
-			        <p>確定發送獎學金?</p>
-			        <button onclick="document.getElementById('tuition').style.display='none'" class="button">確定</button>
-		    		<button onclick="document.getElementById('tuition').style.display='none'" class="button">取消</button>
-		    	</div>
-		    </div>
-		</div>
-	</body>
-
 	<style>
 		html, body {
 		    height: 100%;
@@ -59,15 +25,6 @@
 			font-family: "Microsoft JhengHei", sans-serif;
 		}
 
-		.button {
-		    background-color: Transparent;
-		    background-repeat:no-repeat;
-		    border: none;
-		    cursor:pointer;
-		    overflow: hidden;
-		    outline:none;
-		}
-
 		.content {
 			max-width: 500px;
 			margin: auto;
@@ -83,7 +40,8 @@
 		    text-decoration: none;
 		}
 
-		.container {
+		.btn {
+		    background-color: rgb(23, 109, 116);
 		    margin: auto;
 		    width: auto;
 		    padding: 1.5em 1.5em;
@@ -91,28 +49,19 @@
 		    border-radius: 1em;
 		    display: inline-block;
 		}
-
-		.modal{
-			z-index:3;
-			display:none;
-			padding-top:100px;
-			position:fixed;
-			left:0;
-			top:0;
-			width:100%;
-			height:100%;
-			overflow:auto;
-			background-color:rgb(0,0,0);
-			background-color:rgba(0,0,0,0.4)
-		}
-
-		.modal-content{
-			margin:auto;
-			background-color:#fff;
-			position:relative;
-			padding:0;
-			outline:0;
-			width:600px
-		}
 	</style>
+
+	<body>
+		<div class='content'>
+			<div class='btn'>
+				<a href="../send_URL">發送Email</a>
+			</div>
+			<div class='btn'>
+				<a href="../send_URL">發送獎學金</a>
+			</div>
+			<div class='btn'>
+				<a href="../admin">更動資料庫</a>
+			</div>
+		</div>
+	</body>
 </html>
