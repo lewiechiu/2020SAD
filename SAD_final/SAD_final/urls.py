@@ -20,4 +20,5 @@ urlpatterns = [
     path('FengCramSchool/', include('FengCramSchool.urls')),
     path('home/', views.homepage),
     path('admin/', admin.site.urls),
+    path('send_URL/', views.send_video_URL)
 ]

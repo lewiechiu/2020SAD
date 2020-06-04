@@ -22,9 +22,9 @@
 		</div>
 
 		<div id="email" class="modal">
-		    <div class="modal-content" style="overflow-y: scroll; max-height:85%; margin-top: 50px; margin-bottom:50px;">
+		    <div class="modal-content">
 		    	<div class="container">
-			        <p style="font-size: 24px;" id="emailTxt">確定發送Email?</p>
+			        <p style="font-size: 24px;">確定發送Email?</p>
 			        <button onclick="API_Email();this.style.display='none'" class="button" style="color:gray;">確定</button>
 		    		<button onclick="document.getElementById('email').style.display='none'" class="button" style="color:gray;">取消</button>
 		    	</div>
@@ -32,9 +32,9 @@
 		</div>
 
 		<div id="scholar" class="modal">
-		    <div class="modal-content" style="overflow-y: scroll; max-height:85%; margin-top: 50px; margin-bottom:50px;">
+		    <div class="modal-content">
 		    	<div class="container">
-			        <p style="font-size: 24px;" id="scholarTxt">確定發送獎學金?</p>
+			        <p style="font-size: 24px;">確定發送獎學金?</p>
 			        <button onclick="API_Scholar();this.style.display='none'" class="button" style="color:gray;">確定</button>
 		    		<button onclick="document.getElementById('scholar').style.display='none'" class="button" style="color:gray;">取消</button>
 		    	</div>
@@ -47,18 +47,11 @@
 			var xhttp = new XMLHttpRequest();
 			xhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-					var obj = JSON.parse(this.responseText);
-
-					var out = "";
-					out += "<p style='font-size: 24px'>已發送給</p>";
-					for(var k in obj) {
-						out += obj[k]['name'] + " " + obj[k]['class'] + "<br>";
-					}
-
-					document.getElementById("emailTxt").innerHTML = out;
+			    	document.getElementById("demo").innerHTML =
+			    	this.responseText;
 			    }
 			};
-			xhttp.open("GET", "http://127.0.0.1:8000/FengCramSchool/api/sendEmail/", true);
+			xhttp.open("GET", "xmlhttp_info.txt", true);
 			xhttp.send();
 		}
 
@@ -66,20 +59,13 @@
 			var xhttp = new XMLHttpRequest();
 			xhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-					var obj = JSON.parse(this.responseText);
-
-					var out = "";
-					out += "<p style='font-size: 24px'>已發送給</p>";
-					for(var k in obj) {
-						out += obj[k]['name'] + " " + obj[k]['amount'] + "元<br>";
-					}
-
-					document.getElementById("scholarTxt").innerHTML = out;
+			    	document.getElementById("demo").innerHTML =
+			    	this.responseText;
 			    }
 			};
-			xhttp.open("GET", "http://127.0.0.1:8000/FengCramSchool/api/issueScholar/", true);
+			xhttp.open("GET", "xmlhttp_info.txt", true);
 			xhttp.send();
-		}
+		}	
 	</script>
 
 	<style>
@@ -161,8 +147,6 @@
 			outline:0;
 			width:600px;
 			text-align:center;
-			height: 50%;
-  			overflow-y: auto;
 		}
 	</style>
 </html>
