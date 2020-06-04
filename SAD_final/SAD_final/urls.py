@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from FengCramSchool.views import send_video_URL
+from FengCramSchool import views
 urlpatterns = [
     path('FengCramSchool/', include('FengCramSchool.urls')),
+    path('home/', views.homepage),
     path('admin/', admin.site.urls),
-    path('send_URL/', send_video_URL)
+    path('send_URL/', views.send_video_URL)
 ]
