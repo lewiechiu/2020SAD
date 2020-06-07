@@ -34,15 +34,17 @@
 				<!-- </div> -->
 				<!-- <div class='container' style="background-color:	rgb(118, 201, 176);"> -->
 					<a href="../admin" class="button database">
-						<h3>更新資料庫</h3>
-						新增、刪除、編輯學生資料、課程資料等
+						<div style="margin: 40px auto;">
+							<h3>更新資料庫</h3>
+							<p>新增、刪除、編輯學生資料、課程資料等</p>
+						</div>
 					</a>
 				<!-- </div> -->
 			</div>
 
 			<div id="email" class="modal">
-				<div class="modal-content" style="max-height:85%; margin-top: 50px; margin-bottom:50px;">
-					<div class="container">
+				<div class="modal-content" style="max-height:85%; margin-top: 50px; margin-bottom:50px; display: flex; justify-content: center; align-items: center;">
+					<div class="container" >
 						<p>此功能將會列出所有缺課學生名單</p>
 						<p>並且以 Email 寄送缺課通知及補課影片連結</p>
 						<p style="font-size: 24px;" id="emailTxt">確定發送 Email?</p>
@@ -53,7 +55,7 @@
 			</div>
 
 			<div id="scholar" class="modal">
-				<div class="modal-content" style="max-height:85%; margin-top: 50px; margin-bottom:50px;">
+				<div class="modal-content" style="max-height:85%; margin-top: 50px; margin-bottom:50px; display: flex; justify-content: center; align-items: center;">
 					<div class="container">
 						<p>此功能將會列出所有目前符合資格且尚未領取獎學金的學生</p>
 						<p>並在資料庫中將這些學生標註為已領取獎學金</p>
@@ -250,7 +252,6 @@
 		    border-radius: 1em;
 		    display: inline-block;
 			vertical-align: middle;
-			height: 20vh;
 		}
 		a {
 			text-align: center;
