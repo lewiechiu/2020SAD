@@ -133,7 +133,7 @@
 					var out = "";
 					out += "<p style='font-size: 24px'>已發送給</p>";
 					for(var k in obj) {
-						out += obj[k]['name'] + " " + obj[k]['amount'] + "元<br>";
+						out += obj[k]['name'] + " " + obj[k]['description'] + " " + obj[k]['amount'] + "元<br>";
 					}
 
 					document.getElementById("scholarTxt").innerHTML = out;
